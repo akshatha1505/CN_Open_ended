@@ -1,52 +1,31 @@
-import java.util.Scanner;   
-       
-public class CaesarCipher  
-{   
-    public static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";   
-      
-    public static String encryptData(String inputStr, int shiftKey)   
-    {   
-         inputStr = inputStr.toLowerCase();   
-         String encryptStr = "";   
-           for (int i = 0; i < inputStr.length(); i++)   
-        {   
-            int pos = ALPHABET.indexOf(inputStr.charAt(i));   
-            int encryptPos = (shiftKey + pos) % 26;   
-            char encryptChar = ALPHABET.charAt(encryptPos);   
-            encryptStr += encryptChar;   
-        }   
-        return encryptStr;   
-    }   
-      
-    public static String decryptData(String inputStr, int shiftKey)   
-    {   
-      inputStr = inputStr.toLowerCase();   
-      String decryptStr = "";   
-          for (int i = 0; i < inputStr.length(); i++)   
-        {   
-            int pos = ALPHABET.indexOf(inputStr.charAt(i));   
-            int decryptPos = (pos - shiftKey) % 26;   
-            if (decryptPos < 0){   
-                decryptPos = ALPHABET.length() + decryptPos;   
-            }   
-            char decryptChar = ALPHABET.charAt(decryptPos);   
-            decryptStr += decryptChar;   
-        }   
-        return decryptStr;   
-    }   
-      
-    public static void main(String[] args)   
-     {   
-        Scanner sc = new Scanner(System.in);
-      
-        System.out.println("Enter a string for encryption using Caesar Cipher: ");   
-        String inputStr = sc.nextLine();   
-          
-        System.out.println("Enter the value by which each character in the plaintext message gets shifted: ");   
-        int shiftKey = Integer.valueOf(sc.nextLine());   
-          
-        System.out.println("Encrypted Data ===> "+encryptData(inputStr, shiftKey));   
-        System.out.println("Decrypted Data ===> "+decryptData(encryptData(inputStr, shiftKey), shiftKey));   
-        sc.close();   
-    }   
+class CaesarCipher
+{
+	public static StringBuffer encrypt(String text, int s)
+	{
+		StringBuffer result= new StringBuffer();
+
+		for (int i=0; i<text.length(); i++)
+		{
+			if (Character.isUpperCase(text.charAt(i)))
+			{
+				char ch = (char)(((int)text.charAt(i) + s - 65) % 26 + 65);
+				result.append(ch);
+			}
+			else
+			{
+				char ch = (char)(((int)text.charAt(i) + s - 97) % 26 + 97);
+				result.append(ch);
+			}
+		}
+		return result;
+	}
+	// Driver code
+	public static void main(String[] args)
+	{
+		String text = "ATTACKATONCE";
+		int s = 4;
+		System.out.println("Text : " + text);
+		System.out.println("Shift : " + s);
+		System.out.println("Cipher: " + encrypt(text, s));
+	}
 }
